@@ -59,12 +59,12 @@ jobs:
         id: brew_cache
         uses: tecolicom/actions-use-homebrew-tools@v1.2
         with:
-          tools: ldid dpkg make
+          tools: ldid dpkg make python3
           cache: yes
 
       - name: Install Dependencies
         if: steps.brew_cache.outputs.cache-hit != 'true'
-        run: brew install ldid dpkg make
+        run: brew install ldid dpkg make python3
 
       - name: Set PATH environment variable
         run: echo "$(brew --prefix make)/libexec/gnubin" >> $GITHUB_PATH 
@@ -113,7 +113,8 @@ jobs:
       - name: Prepare YouTube iPA
         id: prepare_youtube
         run: |
-          wget "$YOUTUBE_URL" --no-verbose -O main/YouTube.ipa
+          python3 -m pip install -yy gdown
+          python3 -m pip gdown "$YOUTUBE_URL" -O main/YouTube.ipa
           cd ${{ github.workspace }}/main
           mv YouTube.ipa YouTube.zip
           unzip -q YouTube.zip
