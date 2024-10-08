@@ -114,7 +114,7 @@ jobs:
         id: prepare_youtube
         run: |
           python3 -m pip install gdown
-          python3 -m pip gdown "$YOUTUBE_URL" -O main/YouTube.ipa
+          python3 -m gdown "$YOUTUBE_URL" -O main/YouTube.ipa
           cd ${{ github.workspace }}/main
           mv YouTube.ipa YouTube.zip
           unzip -q YouTube.zip
